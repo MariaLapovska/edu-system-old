@@ -33,7 +33,9 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public Category create(Category category) {
+    public Category create(String name) {
+        Category category = new Category();
+        category.setName(name);
         return categoryRepository.save(category);
     }
 }

@@ -27,7 +27,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public String authenticate(String login, String password) throws ServiceException {
         String encodedPassword = DigestUtils.md5Hex(password);
-        User user = userRepository.findByLoginAndPassword(login, encodedPassword).orElseThrow(() -> new ServiceException("User not found"));
+        User user = userRepository.findByLoginAndPass(login, encodedPassword).orElseThrow(() -> new ServiceException("User not found"));
         return createUserToken(user);
     }
 

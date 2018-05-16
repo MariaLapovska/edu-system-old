@@ -7,5 +7,5 @@ import com.edu.system.vo.Category;
 public interface CategoryService {
     Category getCategoryById(Long id) throws ServiceException;
     List<Category> getAll();
-    Category create(Category category);
+    Category create(String name);
 }

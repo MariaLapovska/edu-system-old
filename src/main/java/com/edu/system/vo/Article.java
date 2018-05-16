@@ -10,7 +10,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Data;
 
@@ -27,14 +26,8 @@ public class Article {
     private String body;
 
     @ManyToOne
-    private Article article;
-
-    @ManyToOne
     private Category category;
 
     @OneToMany
     private List<Attachment> attachment;
-
-    @ManyToOne
-    private Test test;
 }

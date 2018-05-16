@@ -35,12 +35,12 @@ public class Test {
     @ElementCollection(targetClass = String.class)
     private List<String> variants;
 
-    @ManyToOne
-    private Test test;
-
     @Enumerated(EnumType.STRING)
     private TestType testType;
 
     @Enumerated(EnumType.STRING)
     private CodeType codeType;
+
+    @ManyToOne
+    private Article article;
 }

@@ -1,16 +1,16 @@
 package com.edu.system.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.edu.system.repository.TestRepository;
-import com.edu.system.rest.vo.TestContent;
+import com.edu.system.service.ArticleService;
 import com.edu.system.service.ServiceException;
 import com.edu.system.service.TestService;
 import com.edu.system.validators.Validator;
 import com.edu.system.validators.ValidatorException;
-import com.edu.system.validators.code.CodeValidator;
-import com.edu.system.validators.test.TestValidator;
 import com.edu.system.validators.vo.ValidatorResult;
 import com.edu.system.vo.Test;
 import com.edu.system.vo.types.TestType;
@@ -19,31 +19,18 @@ import com.edu.system.vo.types.TestType;
 public class TestServiceImpl implements TestService {
 
     private final TestRepository testRepository;
+    private final ArticleService articleService;
 
     @Autowired
-    public TestServiceImpl(TestRepository testRepository) {
+    public TestServiceImpl(TestRepository testRepository, ArticleService articleService) {
         this.testRepository = testRepository;
+        this.articleService = articleService;
     }
 
     @Override
-    public TestContent create(TestContent testContent) throws ServiceException {
-        return TestContent.from(testRepository.save(prepareTest(testContent)));
-    }
-
-    @Override
-    public ValidatorResult validate(TestType testType, Long testId, String payload) throws ServiceException {
-        Validator validator;
-        switch (testType) {
-            case CODE:
-                validator = new CodeValidator();
-                break;
-            case TEST:
-                validator = new TestValidator();
-                break;
-            default:
-                throw new ServiceException("Validator not found");
-        }
+    public ValidatorResult validate(Long testId, String payload) throws ServiceException {
         Test test = testRepository.findById(testId).orElseThrow(() -> new ServiceException("Test not found"));
+        Validator validator = test.getTestType().getValidator();
         try {
             return validator.validate(payload, test);
         } catch (ValidatorException e) {
@@ -56,22 +43,33 @@ public class TestServiceImpl implements TestService {
     }
 
     @Override
-    public TestContent findNext(Long testId) throws ServiceException {
-        return TestContent.from(testRepository.findNextTest(testId).orElseThrow(() -> new ServiceException("Test not found id: " + testId)));
+    public Test create(String name, String body, String condition, TestType testType, Long articleId) throws ServiceException {
+        Test test = new Test();
+        test.setName(name);
+        test.setBody(body);
+        test.setCondition(condition);
+        test.setTestType(testType);
+        test.setArticle(articleService.get(articleId));
+        return testRepository.save(test);
     }
 
-    private Test prepareTest(TestContent content) throws ServiceException {
-        Test test = new Test();
-        test.setName(content.getName());
-        test.setBody(content.getBody());
-        test.setCondition(content.getCondition());
-        test.setFileToWrite(content.getFileToWrite());
-        test.setVariants(content.getVariants());
-        test.setTestType(content.getTestType());
-        test.setCodeType(content.getCodeType());
-        if (content.getTest() != null) {
-            test.setTest(testRepository.findById(content.getTest()).orElseThrow(() -> new ServiceException("Invalid test id: " + content.getTest())));
-        }
-        return test;
+    @Override
+    public List<Test> getByArticle(Long articleId) throws ServiceException {
+        return testRepository.findByArticle(articleService.get(articleId));
+    }
+
+    @Override
+    public Test get(Long id) throws ServiceException {
+        return testRepository.findById(id).orElseThrow(()-> new ServiceException("Cant find test by id: " + id));
+    }
+
+    @Override
+    public void delete(Long id) throws ServiceException {
+        delete(get(id));
+    }
+
+    @Override
+    public void delete(Test test) throws ServiceException {
+        testRepository.delete(test);
     }
 }
