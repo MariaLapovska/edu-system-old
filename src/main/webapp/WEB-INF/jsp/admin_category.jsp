@@ -2,20 +2,37 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
+    <link rel="stylesheet" href="<c:url value="/css/bootstrap.min.css"/>">
 </head>
 <body>
-
-Назва категорії: ${category.name}
-<h3>Ствроені .... шото</h3>
-<c:forEach var="article" items="${articles}">
-    <a href="/admin/article/${article.id}">${article.name}</a>
-    ${article.body}
-    <br/>
-</c:forEach>
-<form method="post" action="#">
-    <input type="text" name="name">
-    <input type="text" name="body">
-    <input type="submit" value="Создать">
-</form>
+<div class="container">
+    Назва категорії: ${category.name}
+    <h3>Створені модулі</h3>
+    <div class="row">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>Назва</th>
+            </tr>
+            </thead>
+            <c:forEach var="article" items="${articles}">
+                <tr>
+                    <td><a href="/admin/article/${article.id}">${article.name}</a></td>
+                </tr>
+            </c:forEach>
+        </table>
+        <form method="post" action="#">
+            <div class="form-group">
+                <label for="name">Назва</label>
+                <input type="text" id="name" name="name" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="body">Зміст</label>
+                <textarea id="body" cols="100" rows="10" name="body" class="form-control"></textarea>
+            </div>
+            <input type="submit" value="Создать">
+        </form>
+    </div>
+</div>
 </body>
 </html>

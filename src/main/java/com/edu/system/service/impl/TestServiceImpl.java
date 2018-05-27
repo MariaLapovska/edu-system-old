@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.edu.system.repository.AbstractCadrRepository;
 import com.edu.system.repository.TestRepository;
 import com.edu.system.service.ArticleService;
 import com.edu.system.service.ServiceException;
@@ -12,6 +13,8 @@ import com.edu.system.service.TestService;
 import com.edu.system.validators.Validator;
 import com.edu.system.validators.ValidatorException;
 import com.edu.system.validators.vo.ValidatorResult;
+import com.edu.system.vo.AbstractCadr;
+import com.edu.system.vo.Article;
 import com.edu.system.vo.Test;
 import com.edu.system.vo.types.TestType;
 
@@ -20,11 +23,13 @@ public class TestServiceImpl implements TestService {
 
     private final TestRepository testRepository;
     private final ArticleService articleService;
+    private final AbstractCadrRepository abstractCadrRepository;
 
     @Autowired
-    public TestServiceImpl(TestRepository testRepository, ArticleService articleService) {
+    public TestServiceImpl(TestRepository testRepository, ArticleService articleService, AbstractCadrRepository abstractCadrRepository) {
         this.testRepository = testRepository;
         this.articleService = articleService;
+        this.abstractCadrRepository = abstractCadrRepository;
     }
 
     @Override
@@ -43,14 +48,20 @@ public class TestServiceImpl implements TestService {
     }
 
     @Override
-    public Test create(String name, String body, String condition, TestType testType, Long articleId) throws ServiceException {
+    public Test create(String name, String body, String condition, TestType testType, String color, Long articleId) throws ServiceException {
+        AbstractCadr abstractCadr = abstractCadrRepository.findByNextTestIsNullAndNextInfoIsNull().orElseThrow(()-> new ServiceException("das"));
         Test test = new Test();
         test.setName(name);
         test.setBody(body);
         test.setCondition(condition);
         test.setTestType(testType);
-        test.setArticle(articleService.get(articleId));
-        return testRepository.save(test);
+        test.setColor(color);
+        Article article = articleService.get(articleId);
+        test.setArticle(article);
+        test = testRepository.save(test);
+        abstractCadr.setNextTest(test);
+        abstractCadrRepository.save(abstractCadr);
+        return test;
     }
 
     @Override
@@ -71,5 +82,10 @@ public class TestServiceImpl implements TestService {
     @Override
     public void delete(Test test) throws ServiceException {
         testRepository.delete(test);
+    }
+
+    @Override
+    public List<Test> findByNextTestIsNull() {
+        return testRepository.findByNextTestIsNull();
     }
 }

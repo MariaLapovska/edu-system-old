@@ -9,9 +9,10 @@ import com.edu.system.vo.types.TestType;
 public interface TestService {
 
     ValidatorResult validate(Long testId, String payload) throws ServiceException;
-    Test create(String name, String body, String condition, TestType testType, Long articleId) throws ServiceException;
+    Test create(String name, String body, String condition, TestType testType, String color, Long articleId) throws ServiceException;
     List<Test> getByArticle(Long articleId) throws ServiceException;
     Test get(Long id) throws ServiceException;
     void delete(Long id) throws ServiceException;
     void delete(Test test) throws ServiceException;
+    List<Test> findByNextTestIsNull();
 }

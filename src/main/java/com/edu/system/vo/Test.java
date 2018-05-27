@@ -10,25 +10,20 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.edu.system.vo.types.CodeType;
 import com.edu.system.vo.types.TestType;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
+@EqualsAndHashCode(callSuper = true)
 @Entity
 @Table(name = "tests")
 @Data
-public class Test {
+public class Test extends AbstractCadr{
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
-
-    private String name;
-    private String body;
     private String condition;
     private String fileToWrite;
 
@@ -40,7 +35,4 @@ public class Test {
 
     @Enumerated(EnumType.STRING)
     private CodeType codeType;
-
-    @ManyToOne
-    private Article article;
 }

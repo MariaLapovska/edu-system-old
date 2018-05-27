@@ -2,17 +2,45 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
+    <link rel="stylesheet" href="<c:url value="/css/bootstrap.min.css"/>">
 </head>
 <body>
 
-Назва чего-то: ${test.name}
-${test.body}
+<div class="container">
+    <div class="row">
+        <table class="table">
+            <tr>
+                <th>Назва</th>
+                <td> ${test.name}</td>
+            </tr>
+            <tr>
+                <th>Зміст</th>
+                <td>${test.body}</td>
+            </tr>
+            <c:if test="${resultPresent}">
+                <tr>
+                    <th>Результат</th>
+                    <td> ${result}</td>
+                </tr>
+            </c:if>
+        </table>
+        <c:if test="${!resultPresent}">
+            <div class="col-6">
+                <form method="post" action="#" id="form-test">
+                    <div class="form-group">
+                        <label for="payload">Відповідь</label>
+                        <textarea name="payload" class="form-control" id="payload" rows="10" cols="50"></textarea>
+                    </div>
+                    <input type="submit" value="Перевірити">
+                </form>
+            </div>
+        </c:if>
+        <c:if test="${resultPresent && test.nextTest != null}">
+            <button><a style="text-decoration: none;!important;" href="<c:url value="/test/${test.nextTest.id}"/>">Наступне завдання</a></button>
+        </c:if>
+    </div>
+</div>
 
-${result}
-<form method="post" action="#">
-    <input type="text" name="payload"/>
-    <input type="submit" value="Перевірити">
-</form>
 
 </body>
 </html>

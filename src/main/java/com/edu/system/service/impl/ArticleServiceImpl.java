@@ -43,4 +43,9 @@ public class ArticleServiceImpl implements ArticleService {
     public Article get(Long id) throws ServiceException {
         return articleRepository.findById(id).orElseThrow(() -> new ServiceException("Article not found: " + id));
     }
+
+    @Override
+    public Article update(Article article) {
+        return articleRepository.save(article);
+    }
 }

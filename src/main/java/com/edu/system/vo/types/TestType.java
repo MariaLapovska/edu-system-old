@@ -1,6 +1,7 @@
 package com.edu.system.vo.types;
 
 import com.edu.system.validators.code.CodeValidator;
+import com.edu.system.validators.formula.FormulaValidator;
 import com.edu.system.validators.open.OpenValidator;
 import com.edu.system.validators.test.TestValidator;
 import com.edu.system.validators.Validator;
@@ -20,6 +21,11 @@ public enum TestType {
         @Override
         public Validator getValidator() {
             return new OpenValidator();
+        }
+    }, FORMULA {
+        @Override
+        public Validator getValidator() {
+            return new FormulaValidator();
         }
     };
 

@@ -38,6 +38,7 @@ public class UserTestPage {
     public String create(@PathVariable("id") Long id, Model model, @RequestParam("payload") String payload) throws ServiceException {
         ValidatorResult validate = testService.validate(id, payload);
         model.addAttribute("result", validate.getSuccess());
+        model.addAttribute("resultPresent", true);
         return home(id, model);
     }
 
