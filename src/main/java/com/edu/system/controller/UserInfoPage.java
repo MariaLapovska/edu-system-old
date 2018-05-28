@@ -7,27 +7,25 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.edu.system.service.ArticleService;
 import com.edu.system.service.InfoService;
 import com.edu.system.service.ServiceException;
 
 @Controller
-@RequestMapping("article")
-public class UserArticlePage {
+@RequestMapping("info")
+public class UserInfoPage {
 
-    private final ArticleService articleService;
     private final InfoService infoService;
 
     @Autowired
-    public UserArticlePage(ArticleService articleService, InfoService infoService) {
-        this.articleService = articleService;
+    public UserInfoPage(InfoService infoService) {
         this.infoService = infoService;
     }
 
+
     @GetMapping("{id}")
     public String home(@PathVariable("id") Long id, Model model) throws ServiceException {
-        model.addAttribute("article", articleService.get(id));
-        model.addAttribute("info", infoService.findFirst(id));
-        return "user_article";
+        model.addAttribute("info", infoService.get(id));
+        return "user_info";
     }
+
 }

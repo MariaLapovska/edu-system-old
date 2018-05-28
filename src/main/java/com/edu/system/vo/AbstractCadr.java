@@ -20,7 +20,6 @@ public abstract class AbstractCadr {
 
     private String name;
     private String body;
-    private String color;
 
     @ManyToOne
     private Test nextTest;

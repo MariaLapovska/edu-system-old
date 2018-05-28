@@ -9,6 +9,6 @@ import com.edu.system.vo.AbstractCadr;
 import com.edu.system.vo.Article;
 
 public interface AbstractCadrRepository extends CrudRepository<AbstractCadr, Long> {
-    List<AbstractCadr> findByArticle(Article article);
+    List<AbstractCadr> findByArticleOrderById(Article article);
     Optional<AbstractCadr> findByNextTestIsNullAndNextInfoIsNull();
 }

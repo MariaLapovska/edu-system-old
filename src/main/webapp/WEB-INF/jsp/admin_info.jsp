@@ -11,20 +11,13 @@
         <table class="table">
             <tr>
                 <th>Назва</th>
-                <td> ${test.name}</td>
+                <td> ${info.name}</td>
             </tr>
             <tr>
                 <th>Зміст</th>
-                <td>${test.body}</td>
+                <td>${info.body}</td>
             </tr>
             <tr>
-                <th>Умова</th>
-                <td> ${test.condition}</td>
-            </tr>
-            <tr>
-                <th>Тип</th>
-                <td> ${test.testType}</td>
-            </tr>
 
         </table>
 

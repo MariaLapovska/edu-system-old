@@ -43,21 +43,21 @@ public class ArticlePage {
     public String home(@PathVariable("id") Long id, Model model) throws ServiceException {
         Article article = articleService.get(id);
         model.addAttribute("article", article);
-        model.addAttribute("cadrs", abstractCadrRepository.findByArticle(article));
+        model.addAttribute("cadrs", abstractCadrRepository.findByArticleOrderById(article));
         return "admin_article";
     }
 
 
     @PostMapping("{id}/test")
     public void createTest(@PathVariable("id") Long id, @RequestParam("name") String name, @RequestParam("body") String body,
-                       @RequestParam("condition") String condition, @RequestParam("type") TestType type, @RequestParam("color") String color, HttpServletResponse response) throws ServiceException, IOException {
-        testService.create(name, body, condition, type, color, id);
+                       @RequestParam("condition") String condition, @RequestParam("type") TestType type, HttpServletResponse response) throws ServiceException, IOException {
+        testService.create(name, body, condition, type, id);
         response.sendRedirect("/admin/article/" + id);
     }
 
     @PostMapping("{id}/info")
-    public void createInfo(@PathVariable("id") Long id, @RequestParam("name") String name, @RequestParam("body") String body, @RequestParam("color") String color, HttpServletResponse response) throws ServiceException, IOException {
-        infoService.create(name, body, color, id);
+    public void createInfo(@PathVariable("id") Long id, @RequestParam("name") String name, @RequestParam("body") String body, HttpServletResponse response) throws ServiceException, IOException {
+        infoService.create(name, body, id);
         response.sendRedirect("/admin/article/" + id);
     }
 

@@ -6,12 +6,13 @@
 </head>
 <body>
 <div class="container">
-    Назва чего-то: ${article.name}
+    <h3>Назва модулю: ${article.name}</h3>
     <br/>
+    <h4>Теоретична частина</h4>
     ${article.body}
-
-    <c:if test="${test != null}">
-        <a href="/test/${test.id}">Перейти до тестування</a>
+    <br/>
+    <c:if test="${info != null}">
+        <a href="/info/${info.id}">Перейти до першого кадру</a>
     </c:if>
 </div>
 </body>

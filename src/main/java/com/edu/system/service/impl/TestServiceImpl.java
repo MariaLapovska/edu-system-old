@@ -48,14 +48,13 @@ public class TestServiceImpl implements TestService {
     }
 
     @Override
-    public Test create(String name, String body, String condition, TestType testType, String color, Long articleId) throws ServiceException {
+    public Test create(String name, String body, String condition, TestType testType, Long articleId) throws ServiceException {
         AbstractCadr abstractCadr = abstractCadrRepository.findByNextTestIsNullAndNextInfoIsNull().orElseThrow(()-> new ServiceException("das"));
         Test test = new Test();
         test.setName(name);
         test.setBody(body);
         test.setCondition(condition);
         test.setTestType(testType);
-        test.setColor(color);
         Article article = articleService.get(articleId);
         test.setArticle(article);
         test = testRepository.save(test);

@@ -35,8 +35,14 @@
                 </form>
             </div>
         </c:if>
-        <c:if test="${resultPresent && test.nextTest != null}">
-            <button><a style="text-decoration: none;!important;" href="<c:url value="/test/${test.nextTest.id}"/>">Наступне завдання</a></button>
+        <c:if test="${resultPresent && result && test.nextTest != null}">
+            <button><a style="text-decoration: none;!important;" href="<c:url value="/test/${test.nextTest.id}"/>">Наступний кадр</a></button>
+        </c:if>
+        <c:if test="${resultPresent && result && test.nextInfo != null}">
+            <button><a style="text-decoration: none;!important;" href="<c:url value="/info/${test.nextInfo.id}"/>">Наступний кадр</a></button>
+        </c:if>
+        <c:if test="${resultPresent && !result}">
+            <button><a style="text-decoration: none;!important;" href="<c:url value="/info/${lastInfoId}"/>">Повернутися на попередній інформаційний кадр</a></button>
         </c:if>
     </div>
 </div>

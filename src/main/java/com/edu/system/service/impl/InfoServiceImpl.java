@@ -11,6 +11,7 @@ import com.edu.system.service.ArticleService;
 import com.edu.system.service.InfoService;
 import com.edu.system.service.ServiceException;
 import com.edu.system.vo.AbstractCadr;
+import com.edu.system.vo.Article;
 import com.edu.system.vo.Info;
 
 @Service
@@ -28,12 +29,11 @@ public class InfoServiceImpl implements InfoService {
     }
 
     @Override
-    public void create(String name, String body, String color, Long articleId) throws ServiceException {
+    public void create(String name, String body, Long articleId) throws ServiceException {
         Info info = new Info();
         info.setArticle(articleService.get(articleId));
         info.setName(name);
         info.setBody(body);
-        info.setColor(color);
         Optional<AbstractCadr> cadr = abstractCadrRepository.findByNextTestIsNullAndNextInfoIsNull();
         if (cadr.isPresent()) {
             cadr.get().setNextInfo(infoRepository.save(info));
@@ -46,5 +46,16 @@ public class InfoServiceImpl implements InfoService {
     @Override
     public Info get(Long id) throws ServiceException {
         return infoRepository.findById(id).orElseThrow(() -> new ServiceException("asdasda"));
+    }
+
+    @Override
+    public void delete(Long id) throws ServiceException {
+        infoRepository.delete(get(id));
+    }
+
+    @Override
+    public Info findFirst(Long articleId) throws ServiceException {
+        Article article = articleService.get(articleId);
+        return infoRepository.findFirstByArticleOrderById(article);
     }
 }
