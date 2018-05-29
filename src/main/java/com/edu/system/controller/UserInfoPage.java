@@ -12,6 +12,7 @@ import com.edu.system.service.ServiceException;
 
 @Controller
 @RequestMapping("info")
+@AccessRoles(Roles.USER)
 public class UserInfoPage {
 
     private final InfoService infoService;

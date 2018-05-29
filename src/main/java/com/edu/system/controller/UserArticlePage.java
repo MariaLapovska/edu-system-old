@@ -13,6 +13,7 @@ import com.edu.system.service.ServiceException;
 
 @Controller
 @RequestMapping("article")
+@AccessRoles(Roles.USER)
 public class UserArticlePage {
 
     private final ArticleService articleService;

@@ -1,5 +1,7 @@
 package com.edu.system;
 
+import java.io.IOException;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -8,6 +10,7 @@ import org.springframework.web.servlet.HandlerInterceptor;
 
 import com.edu.system.controller.AccessRoles;
 import com.edu.system.controller.Roles;
+import com.edu.system.vo.User;
 
 public class AuthInterceptor implements HandlerInterceptor {
 
@@ -16,17 +19,31 @@ public class AuthInterceptor implements HandlerInterceptor {
         if (handler instanceof HandlerMethod) {
             HandlerMethod method = (HandlerMethod) handler;
             if (method.hasMethodAnnotation(AccessRoles.class)) {
-                return method.getMethodAnnotation(AccessRoles.class).value() == Roles.ALL ||
-                        method.getMethodAnnotation(AccessRoles.class).value().getWeight() <= Roles.ADMIN.getWeight();
-            } else if(method.getBeanType().isAnnotationPresent(AccessRoles.class)){
-                return method.getBeanType().getAnnotation(AccessRoles.class).value() == Roles.ALL ||
-                        method.getBeanType().getAnnotation(AccessRoles.class).value().getWeight() <= Roles.ADMIN.getWeight();
+                return prepareResponse(request, response, method.getMethodAnnotation(AccessRoles.class).value());
+            } else if (method.getBeanType().isAnnotationPresent(AccessRoles.class)) {
+                return prepareResponse(request, response, method.getBeanType().getAnnotation(AccessRoles.class).value());
             }
         }
         if (handler.getClass().isAnnotationPresent(AccessRoles.class)) {
-            return handler.getClass().getAnnotation(AccessRoles.class).value() == Roles.ALL ||
-                    handler.getClass().getAnnotation(AccessRoles.class).value().getWeight() <= Roles.ADMIN.getWeight();
+            return prepareResponse(request, response, handler.getClass().getAnnotation(AccessRoles.class).value());
         }
         return false;
+    }
+
+    private boolean prepareResponse(HttpServletRequest request, HttpServletResponse response, Roles roles) throws IOException {
+        Object nullUser = request.getSession().getAttribute("user");
+        if (nullUser == null) {
+            boolean condition = roles == Roles.ALL;
+            if (!condition) {
+                response.sendRedirect("/login");
+            }
+            return condition;
+        }
+        User user = (User) nullUser;
+        boolean condition = roles == Roles.ALL || roles.getWeight() <= user.getRoles().getWeight();
+        if (!condition) {
+            response.sendRedirect("/login");
+        }
+        return condition;
     }
 }

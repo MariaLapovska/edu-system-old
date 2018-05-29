@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.edu.system.controller.AccessRoles;
+import com.edu.system.controller.Roles;
 import com.edu.system.repository.AbstractCadrRepository;
 import com.edu.system.service.ArticleService;
 import com.edu.system.service.InfoService;
@@ -23,6 +25,7 @@ import com.edu.system.vo.types.TestType;
 
 @Controller
 @RequestMapping("admin/article")
+@AccessRoles(Roles.ADMIN)
 public class ArticlePage {
 
     private final ArticleService articleService;

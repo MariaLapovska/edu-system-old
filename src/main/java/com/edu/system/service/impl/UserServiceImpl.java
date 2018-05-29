@@ -2,6 +2,7 @@ package com.edu.system.service.impl;
 
 
 import java.util.Base64;
+import java.util.Optional;
 
 import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,10 +26,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public String authenticate(String login, String password) throws ServiceException {
-        String encodedPassword = DigestUtils.md5Hex(password);
-        User user = userRepository.findByLoginAndPass(login, encodedPassword).orElseThrow(() -> new ServiceException("User not found"));
-        return createUserToken(user);
+    public Optional<User> authenticate(String login, String password) throws ServiceException {
+        return userRepository.findByLoginAndPass(login, password);
     }
 
     @Override

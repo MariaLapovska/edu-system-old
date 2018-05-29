@@ -7,9 +7,11 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 
+import com.edu.system.controller.Roles;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Data;
+import lombok.NonNull;
 
 @Entity
 @Table(name = "users")
@@ -26,4 +28,6 @@ public class User {
     private String login;
     @JsonIgnore
     private String pass;
+
+    private Roles roles;
 }

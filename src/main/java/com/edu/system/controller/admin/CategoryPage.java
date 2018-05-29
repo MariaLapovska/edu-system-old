@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.edu.system.controller.AccessRoles;
+import com.edu.system.controller.Roles;
 import com.edu.system.service.ArticleService;
 import com.edu.system.service.CategoryService;
 import com.edu.system.service.ServiceException;
@@ -19,6 +21,7 @@ import com.edu.system.vo.types.TestType;
 
 @Controller
 @RequestMapping("admin/category")
+@AccessRoles(Roles.ADMIN)
 public class CategoryPage {
 
     private final ArticleService articleService;

@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.edu.system.controller.AccessRoles;
+import com.edu.system.controller.Roles;
 import com.edu.system.service.InfoService;
 import com.edu.system.service.ServiceException;
 import com.edu.system.service.TestService;
@@ -16,6 +18,7 @@ import com.edu.system.vo.Test;
 
 @Controller
 @RequestMapping("admin/info")
+@AccessRoles(Roles.ADMIN)
 public class InfoPage {
 
     private final InfoService infoService;

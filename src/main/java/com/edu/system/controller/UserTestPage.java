@@ -20,6 +20,7 @@ import com.edu.system.vo.Test;
 
 @Controller
 @RequestMapping("test")
+@AccessRoles(Roles.USER)
 public class UserTestPage {
 
     private final TestService testService;
