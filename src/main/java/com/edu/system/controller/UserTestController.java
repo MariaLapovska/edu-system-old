@@ -2,6 +2,8 @@ package com.edu.system.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,6 +19,7 @@ import com.edu.system.service.TestService;
 import com.edu.system.validators.vo.ValidatorResult;
 import com.edu.system.vo.AbstractCadr;
 import com.edu.system.vo.Test;
+import com.edu.system.vo.User;
 
 @Controller
 @RequestMapping("test")
@@ -55,10 +58,12 @@ public class UserTestController {
 
 
     @PostMapping("{id}")
-    public String create(@PathVariable("id") Long id, Model model, @RequestParam("payload") String payload) throws ServiceException {
-        ValidatorResult validate = testService.validate(id, payload);
+    public String create(@PathVariable("id") Long id, Model model, @RequestParam("payload") String payload, HttpServletRequest request) throws ServiceException {
+        User user = (User) request.getSession().getAttribute("user");
+        ValidatorResult validate = testService.validate(id, payload, user);
         model.addAttribute("result", validate.getSuccess());
         model.addAttribute("resultPresent", true);
+        model.addAttribute("attempt", validate.getAttempts());
         return home(id, model);
     }
 

@@ -23,6 +23,12 @@
                     <td> ${result}</td>
                 </tr>
             </c:if>
+            <c:if test="${resultPresent && attempt > 0}">
+                <tr>
+                    <th>Спроб</th>
+                    <td> ${attempt}</td>
+                </tr>
+            </c:if>
         </table>
         <c:if test="${!resultPresent}">
             <div class="col-6">
@@ -36,13 +42,21 @@
             </div>
         </c:if>
         <c:if test="${resultPresent && result && test.nextTest != null}">
-            <button><a style="text-decoration: none;!important;" href="<c:url value="/test/${test.nextTest.id}"/>">Наступний кадр</a></button>
+            <button><a style="text-decoration: none;!important;" href="<c:url value="/test/${test.nextTest.id}"/>">Наступний
+                кадр</a></button>
         </c:if>
         <c:if test="${resultPresent && result && test.nextInfo != null}">
-            <button><a style="text-decoration: none;!important;" href="<c:url value="/info/${test.nextInfo.id}"/>">Наступний кадр</a></button>
+            <button><a style="text-decoration: none;!important;" href="<c:url value="/info/${test.nextInfo.id}"/>">Наступний
+                кадр</a></button>
         </c:if>
         <c:if test="${resultPresent && !result}">
-            <button><a style="text-decoration: none;!important;" href="<c:url value="/info/${lastInfoId}"/>">Повернутися на попередній інформаційний кадр</a></button>
+            <c:if test="${attempt > 2}">
+            <button><a style="text-decoration: none;!important;" href="<c:url value="/info/${lastInfoId}"/>">Повернутися
+                на попередній інформаційний кадр</a></button>
+            </c:if>
+            <c:if test="${attempt <= 2}">
+                <button><a style="text-decoration: none;!important;" href="<c:url value="/test/${test.id}"/>">Повторити тест</a></button>
+            </c:if>
         </c:if>
     </div>
 </div>
