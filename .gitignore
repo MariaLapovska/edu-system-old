@@ -2,8 +2,7 @@
 target/
 
 # IDEA files #
-/.idea
-.idea/*
+.idea/
 *.iml
 *.ipr
 *.iws
