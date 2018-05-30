@@ -5,6 +5,7 @@ import java.io.IOException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 
@@ -18,6 +19,13 @@ public class AuthInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         if (handler instanceof HandlerMethod) {
             HandlerMethod method = (HandlerMethod) handler;
+            if (method.getBeanType().equals(BasicErrorController.class)) {
+                if (request.getSession().getAttribute("user") != null) {
+                    return true;
+                } else {
+                    response.sendRedirect("/login");
+                }
+            }
             if (method.hasMethodAnnotation(AccessRoles.class)) {
                 return prepareResponse(request, response, method.getMethodAnnotation(AccessRoles.class).value());
             } else if (method.getBeanType().isAnnotationPresent(AccessRoles.class)) {
