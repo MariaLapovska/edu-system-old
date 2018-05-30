@@ -26,7 +26,7 @@ import com.edu.system.vo.types.TestType;
 @Controller
 @RequestMapping("admin/article")
 @AccessRoles(Roles.ADMIN)
-public class ArticlePage {
+public class ArticleController {
 
     private final ArticleService articleService;
     private final TestService testService;
@@ -34,7 +34,7 @@ public class ArticlePage {
     private final InfoService infoService;
 
     @Autowired
-    public ArticlePage(ArticleService articleService, TestService testService, AbstractCadrRepository abstractCadrRepository, InfoService infoService) {
+    public ArticleController(ArticleService articleService, TestService testService, AbstractCadrRepository abstractCadrRepository, InfoService infoService) {
         this.articleService = articleService;
         this.testService = testService;
         this.abstractCadrRepository = abstractCadrRepository;

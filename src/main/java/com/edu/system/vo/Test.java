@@ -6,10 +6,6 @@ import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.edu.system.vo.types.CodeType;
@@ -20,7 +16,7 @@ import lombok.EqualsAndHashCode;
 
 @EqualsAndHashCode(callSuper = true)
 @Entity
-@Table(name = "tests")
+@Table(name = "user_tests")
 @Data
 public class Test extends AbstractCadr{
 

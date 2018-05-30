@@ -17,13 +17,13 @@ import com.edu.system.vo.Test;
 @Controller
 @RequestMapping("admin/test")
 @AccessRoles(Roles.ADMIN)
-public class TestPage {
+public class TestController {
 
     private final TestService testService;
-    private final ArticlePage articlePage;
+    private final ArticleController articlePage;
 
     @Autowired
-    public TestPage(TestService testService, ArticlePage articlePage) {
+    public TestController(TestService testService, ArticleController articlePage) {
         this.testService = testService;
         this.articlePage = articlePage;
     }

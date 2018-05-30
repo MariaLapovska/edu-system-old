@@ -22,13 +22,13 @@ import com.edu.system.vo.types.TestType;
 @Controller
 @RequestMapping("admin/category")
 @AccessRoles(Roles.ADMIN)
-public class CategoryPage {
+public class CategoryController {
 
     private final ArticleService articleService;
     private final CategoryService categoryService;
 
     @Autowired
-    public CategoryPage(ArticleService articleService, CategoryService categoryService) {
+    public CategoryController(ArticleService articleService, CategoryService categoryService) {
         this.articleService = articleService;
         this.categoryService = categoryService;
     }

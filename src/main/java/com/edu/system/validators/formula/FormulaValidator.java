@@ -22,27 +22,28 @@ public class FormulaValidator implements Validator {
         String[] params = condition.split(",");
         List<Pair<String, Double>> values = Arrays
                 .stream(params)
-                .filter(param -> !param.contains("[ANS]="))
+                .filter(param -> !param.contains("[F]="))
                 .map(param -> {
                     String[] prm = param.split("=");
                     return new Pair<>(prm[0].trim().replace("[","").replace("]", ""), Double.valueOf(prm[1].trim()));
                 }).collect(Collectors.toList());
-        Double ans = Arrays
+
+        String formula = Arrays
                 .stream(params)
-                .filter(param -> param.contains("[ANS]="))
+                .filter(param -> param.contains("[F]="))
                 .map(param -> {
                     String[] prm = param.split("=");
-                    return Double.valueOf(prm[1].trim());
+                    return prm[1].trim();
                 }).findFirst().get();
-        String formula = body;
+
         for (Pair<String, Double> value : values) {
             formula = formula.replaceAll(value.getKey(), value.getValue().toString());
         }
         ScriptEngineManager mgr = new ScriptEngineManager();
         ScriptEngine engine = mgr.getEngineByName("JavaScript");
         try {
-            return new ValidatorResult(null, ans.equals(engine.eval(formula)));
-        } catch (ScriptException e) {
+            return new ValidatorResult(null, Double.valueOf(body).equals(engine.eval(formula)));
+        } catch (Exception e) {
             throw new ValidatorException(e.getMessage(), true);
         }
     }

@@ -21,13 +21,13 @@ import com.edu.system.vo.Test;
 @Controller
 @RequestMapping("test")
 @AccessRoles(Roles.USER)
-public class UserTestPage {
+public class UserTestController {
 
     private final TestService testService;
     private final AbstractCadrRepository abstractCadrRepository;
 
     @Autowired
-    public UserTestPage(TestService testService, AbstractCadrRepository abstractCadrRepository) {
+    public UserTestController(TestService testService, AbstractCadrRepository abstractCadrRepository) {
         this.testService = testService;
         this.abstractCadrRepository = abstractCadrRepository;
     }

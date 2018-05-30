@@ -12,20 +12,18 @@ import com.edu.system.controller.AccessRoles;
 import com.edu.system.controller.Roles;
 import com.edu.system.service.InfoService;
 import com.edu.system.service.ServiceException;
-import com.edu.system.service.TestService;
 import com.edu.system.vo.Info;
-import com.edu.system.vo.Test;
 
 @Controller
 @RequestMapping("admin/info")
 @AccessRoles(Roles.ADMIN)
-public class InfoPage {
+public class InfoController {
 
     private final InfoService infoService;
-    private final ArticlePage articlePage;
+    private final ArticleController articlePage;
 
     @Autowired
-    public InfoPage(InfoService infoService, ArticlePage articlePage) {
+    public InfoController(InfoService infoService, ArticleController articlePage) {
         this.infoService = infoService;
         this.articlePage = articlePage;
     }

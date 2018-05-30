@@ -18,12 +18,12 @@ import com.edu.system.vo.Category;
 @Controller
 @RequestMapping("admin")
 @AccessRoles(Roles.ADMIN)
-public class HomePage {
+public class HomeController {
 
     private final CategoryService categoryService;
 
     @Autowired
-    public HomePage(CategoryService categoryService) {
+    public HomeController(CategoryService categoryService) {
         this.categoryService = categoryService;
     }
 

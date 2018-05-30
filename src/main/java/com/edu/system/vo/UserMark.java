@@ -19,7 +19,7 @@ public class UserMark {
     private Long id;
 
     @ManyToOne
-    private Test test;
+    private Article article;
 
     @ManyToOne
     private User user;

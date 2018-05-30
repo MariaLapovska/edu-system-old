@@ -14,13 +14,13 @@ import com.edu.system.service.ServiceException;
 @Controller
 @RequestMapping("article")
 @AccessRoles(Roles.USER)
-public class UserArticlePage {
+public class UserArticleController {
 
     private final ArticleService articleService;
     private final InfoService infoService;
 
     @Autowired
-    public UserArticlePage(ArticleService articleService, InfoService infoService) {
+    public UserArticleController(ArticleService articleService, InfoService infoService) {
         this.articleService = articleService;
         this.infoService = infoService;
     }
