@@ -14,7 +14,6 @@ import com.edu.system.service.UserAttemptService;
 import com.edu.system.validators.Validator;
 import com.edu.system.validators.ValidatorException;
 import com.edu.system.validators.vo.ValidatorResult;
-import com.edu.system.vo.AbstractCadr;
 import com.edu.system.vo.Article;
 import com.edu.system.vo.Test;
 import com.edu.system.vo.User;
@@ -63,7 +62,6 @@ public class TestServiceImpl implements TestService {
 
     @Override
     public Test create(String name, String body, String condition, TestType testType, Long articleId) throws ServiceException {
-        AbstractCadr abstractCadr = abstractCadrRepository.findByNextTestIsNullAndNextInfoIsNull().orElseThrow(() -> new ServiceException("das"));
         Test test = new Test();
         test.setName(name);
         test.setBody(body);
@@ -72,8 +70,6 @@ public class TestServiceImpl implements TestService {
         Article article = articleService.get(articleId);
         test.setArticle(article);
         test = testRepository.save(test);
-        abstractCadr.setNextTest(test);
-        abstractCadrRepository.save(abstractCadr);
         return test;
     }
 
@@ -95,10 +91,5 @@ public class TestServiceImpl implements TestService {
     @Override
     public void delete(Test test) throws ServiceException {
         testRepository.delete(test);
-    }
-
-    @Override
-    public List<Test> findByNextTestIsNull() {
-        return testRepository.findByNextTestIsNull();
     }
 }

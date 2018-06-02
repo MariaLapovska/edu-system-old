@@ -13,15 +13,15 @@
         <table class="table table-striped">
             <thead>
             <tr>
+                <th>Номер</th>
                 <th>Назва</th>
                 <th>Зміст</th>
                 <th>Тип</th>
-                <th>Наступний тип</th>
-                <th>Наступний</th>
             </tr>
             </thead>
             <c:forEach var="cadr" items="${cadrs}">
                 <tr>
+                    <td>${cadr.id}</td>
                     <c:if test="${cadr.getClassName().equals(\"Info\")}">
                         <td><a href="/admin/info/${cadr.id}">${cadr.name}</a></td>
                     </c:if>
@@ -30,18 +30,6 @@
                     </c:if>
                     <td>${cadr.body}</td>
                     <td>${cadr.getClassName()}</td>
-                    <c:if test="${cadr.nextTest != null}">
-                        <td>${cadr.nextTest.getClassName()}</td>
-                    </c:if>
-                    <c:if test="${cadr.nextInfo != null}">
-                        <td>${cadr.nextInfo.getClassName()}</td>
-                    </c:if>
-                    <c:if test="${cadr.nextTest != null}">
-                        <td>${cadr.nextTest.name}</td>
-                    </c:if>
-                    <c:if test="${cadr.nextInfo != null}">
-                        <td>${cadr.nextInfo.name}</td>
-                    </c:if>
                 </tr>
             </c:forEach>
         </table>
@@ -77,10 +65,6 @@
                 <label for="condition">Необхідні умови</label>
                 <input type="text" name="condition" id="condition" class="form-control">
             </div>
-            <%--<div class="form-group">--%>
-            <%--<label for="color">Колір сторінки</label>--%>
-            <%--<input type="color" name="color" id="color" class="form-control" value="#ffffff">--%>
-            <%--</div>--%>
             <input type="submit" value="Создать">
         </form>
         <form method="post" action="${article.id}/info" id="info-id" style="display: none; width: 100%">
@@ -106,12 +90,27 @@
                 <label for="body1">Зміст</label>
                 <textarea cols="50" rows="20" name="body" id="body1" class="form-control"></textarea>
             </div>
-            <%--<div class="form-group">--%>
-            <%--<label for="color1">Колір сторінки</label>--%>
-            <%--<input type="color" name="color" id="color1" class="form-control" value="#ffffff">--%>
-            <%--</div>--%>
             <input type="submit" value="Создать">
         </form>
+
+        <c:if test="${cadrs.size() >= 2}">
+            <form method="post" action="/admin/link/${article.id}" style="width: 100%">
+                Тип:
+                <div class="form-group">
+                    <label><input type="radio" name="type" id="type-str" value="STRAIGHT">Прямий перехід</label>
+                    <label><input type="radio" name="type" id="type-rev" value="REVERSE">Зворотній перехід</label>
+                </div>
+                <div class="form-group">
+                    <label for="from">Базовий</label>
+                    <input type="number" class="form-control" id="from" name="from">
+                </div>
+                <div class="form-group">
+                    <label for="to">Зв'язати з</label>
+                    <input type="number" name="to" id="to" class="form-control">
+                </div>
+                <input type="submit" value="Создать">
+            </form>
+        </c:if>
     </div>
 </div>
 <script>

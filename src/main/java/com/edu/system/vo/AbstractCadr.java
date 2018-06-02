@@ -22,12 +22,6 @@ public abstract class AbstractCadr {
     private String body;
 
     @ManyToOne
-    private Test nextTest;
-
-    @ManyToOne
-    private Info nextInfo;
-
-    @ManyToOne
     private Article article;
 
     public String getClassName(){

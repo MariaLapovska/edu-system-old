@@ -15,5 +15,4 @@ public interface TestService {
     Test get(Long id) throws ServiceException;
     void delete(Long id) throws ServiceException;
     void delete(Test test) throws ServiceException;
-    List<Test> findByNextTestIsNull();
 }

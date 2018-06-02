@@ -34,13 +34,7 @@ public class InfoServiceImpl implements InfoService {
         info.setArticle(articleService.get(articleId));
         info.setName(name);
         info.setBody(body);
-        Optional<AbstractCadr> cadr = abstractCadrRepository.findByNextTestIsNullAndNextInfoIsNull();
-        if (cadr.isPresent()) {
-            cadr.get().setNextInfo(infoRepository.save(info));
-            abstractCadrRepository.save(cadr.get());
-        } else {
-            infoRepository.save(info);
-        }
+        infoRepository.save(info);
     }
 
     @Override

@@ -14,13 +14,15 @@
             ${info.body}
             <br/>
 
-            <c:if test="${info.nextTest != null}">
-                <button><a style="text-decoration: none;!important;" href="<c:url value="/test/${info.nextTest.id}"/>">Наступний
-                    кадр</a></button>
-            </c:if>
-            <c:if test="${info.nextInfo != null}">
-                <button><a style="text-decoration: none;!important;" href="<c:url value="/info/${info.nextInfo.id}"/>">Наступний
-                    кадр</a></button>
+            <c:if test="${nextId != null}">
+                <c:if test="${nextId.getClassName().equals(\"Test\")}">
+                    <button><a style="text-decoration: none;!important;" href="<c:url value="/test/${nextId.id}"/>">Наступний
+                        кадр</a></button>
+                </c:if>
+                <c:if test="${nextId.getClassName().equals(\"Info\")}">
+                    <button><a style="text-decoration: none;!important;" href="<c:url value="/info/${nextId.id}"/>">Наступний
+                        кадр</a></button>
+                </c:if>
             </c:if>
         </div>
     </div>

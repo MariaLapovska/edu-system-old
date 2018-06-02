@@ -41,22 +41,28 @@
                 </form>
             </div>
         </c:if>
-        <c:if test="${resultPresent && result && test.nextTest != null}">
-            <button><a style="text-decoration: none;!important;" href="<c:url value="/test/${test.nextTest.id}"/>">Наступний
-                кадр</a></button>
-        </c:if>
-        <c:if test="${resultPresent && result && test.nextInfo != null}">
-            <button><a style="text-decoration: none;!important;" href="<c:url value="/info/${test.nextInfo.id}"/>">Наступний
-                кадр</a></button>
+        <c:if test="${resultPresent && result && nextId != null}">
+            <c:if test="${nextId.getClassName().equals(\"Test\")}">
+                <button><a style="text-decoration: none;!important;" href="<c:url value="/test/${nextId.id}"/>">Наступний
+                    кадр</a></button>
+            </c:if>
+            <c:if test="${nextId.getClassName().equals(\"Info\")}">
+                <button><a style="text-decoration: none;!important;" href="<c:url value="/info/${nextId.id}"/>">Наступний
+                    кадр</a></button>
+            </c:if>
         </c:if>
         <c:if test="${resultPresent && !result}">
             <c:if test="${attempt > 2}">
-            <button><a style="text-decoration: none;!important;" href="<c:url value="/info/${lastInfoId}"/>">Повернутися
-                на попередній інформаційний кадр</a></button>
+                <button><a style="text-decoration: none;!important;" href="<c:url value="/info/${lastInfoId}"/>">Повернутися
+                    на попередній інформаційний кадр</a></button>
             </c:if>
             <c:if test="${attempt <= 2}">
-                <button><a style="text-decoration: none;!important;" href="<c:url value="/test/${test.id}"/>">Повторити тест</a></button>
+                <button><a style="text-decoration: none;!important;" href="<c:url value="/test/${test.id}"/>">Повторити
+                    тест</a></button>
             </c:if>
+        </c:if>
+        <c:if test="${resultPresent && nextId == null &&result}">
+            <a href="/result">До результатів</a>
         </c:if>
     </div>
 </div>
