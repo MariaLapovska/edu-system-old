@@ -5,7 +5,7 @@
     <link rel="stylesheet" href="<c:url value="/css/bootstrap.min.css"/>">
 </head>
 <body>
-<div class="container"">
+<div class="container">
     <div class="row">
 
         <table class="table">
@@ -32,6 +32,7 @@
         <form method="post" action="#">
             <input type="submit" value="Видалити">
         </form>
+        <button><a href="/admin/test/${test.id}/edit">Змінити</a></button>
     </div>
 </div>
 </body>

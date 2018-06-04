@@ -1,7 +1,5 @@
 package com.edu.system.service.impl;
 
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,7 +8,6 @@ import com.edu.system.repository.InfoRepository;
 import com.edu.system.service.ArticleService;
 import com.edu.system.service.InfoService;
 import com.edu.system.service.ServiceException;
-import com.edu.system.vo.AbstractCadr;
 import com.edu.system.vo.Article;
 import com.edu.system.vo.Info;
 
@@ -51,5 +48,10 @@ public class InfoServiceImpl implements InfoService {
     public Info findFirst(Long articleId) throws ServiceException {
         Article article = articleService.get(articleId);
         return infoRepository.findFirstByArticleOrderById(article);
+    }
+
+    @Override
+    public void update(Info info) {
+        infoRepository.save(info);
     }
 }

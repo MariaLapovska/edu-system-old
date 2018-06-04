@@ -58,7 +58,7 @@ public class ArticleController {
     @PostMapping("{id}/test")
     public void createTest(@PathVariable("id") Long id, @RequestParam("name") String name, @RequestParam("body") String body,
                        @RequestParam("condition") String condition, @RequestParam("type") TestType type, HttpServletResponse response) throws ServiceException, IOException {
-        testService.create(name, body, condition, type, id);
+        testService.create(name, body.replaceAll("\\n", "<br/>"), condition, type, id);
         response.sendRedirect("/admin/article/" + id);
     }
 

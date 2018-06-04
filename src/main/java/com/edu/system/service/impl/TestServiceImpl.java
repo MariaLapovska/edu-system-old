@@ -91,4 +91,9 @@ public class TestServiceImpl implements TestService {
     public void delete(Test test) throws ServiceException {
         testRepository.delete(test);
     }
+
+    @Override
+    public void update(Test test) {
+        testRepository.save(test);
+    }
 }

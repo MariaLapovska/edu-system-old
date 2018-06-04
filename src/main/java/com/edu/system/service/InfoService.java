@@ -8,4 +8,5 @@ public interface InfoService {
     Info get(Long id) throws ServiceException;
     void delete(Long id) throws ServiceException;
     Info findFirst(Long articleId) throws ServiceException;
+    void update(Info info);
 }
