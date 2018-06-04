@@ -41,6 +41,7 @@ public class ResultController {
     public String result(@PathVariable("id") Long id, HttpServletRequest httpServletRequest, Model model) throws ServiceException {
         List<UserAttempt> userAttempts = userAttemptService.getUserAttempts((User) httpServletRequest.getSession().getAttribute("user"))
                 .stream()
+                .filter(userAttempt -> userAttempt.getTest() != null)
                 .filter(userAttempt -> userAttempt.getTest().getArticle().getId().equals(id))
                 .collect(Collectors.toList());
         model.addAttribute("attempts", userAttempts);
@@ -54,7 +55,7 @@ public class ResultController {
             }
         }
         if (count > 0) {
-            double mark = (1.0 - ((double) tries / (double) count * 3.0)) * 100.0;
+            double mark = (1.0 - ((double) tries / ((double) count * 3.0))) * 100.0;
             model.addAttribute("mark", (int) mark);
             UserMark userMark = new UserMark();
             userMark.setMark((int) mark);

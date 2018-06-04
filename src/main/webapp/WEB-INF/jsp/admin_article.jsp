@@ -7,9 +7,9 @@
 </head>
 <body>
 <div class="container">
-    Назва модуля: ${article.name}
+    <h3>Назва модуля: ${article.name}</h3>
     <div class="row">
-        <h3>Створені кадры</h3>
+        <h4>Створені кадры</h4>
         <table class="table table-striped">
             <thead>
             <tr>
@@ -31,7 +31,7 @@
                 </tr>
             </c:forEach>
         </table>
-        <h3>Створені зв'язки</h3>
+        <h4>Створені зв'язки</h4>
         <table class="table table-striped">
             <thead>
             <tr>
@@ -61,14 +61,14 @@
         <div>
             <button class="btn default"
                     onclick="document.getElementById('info-id').style.display='block'; document.getElementById('test-id').style.display='none';">
-                Додати Інформаційний кадр
+                Додати інформаційний кадр
             </button>
         </div>
         <div>
             <c:if test="${!cadrs.isEmpty()}">
                 <button class="btn default"
                         onclick="document.getElementById('test-id').style.display='block'; document.getElementById('info-id').style.display='none';">
-                    Додати Контрольний кадр
+                    Додати контрольний кадр
                 </button>
             </c:if>
         </div>
@@ -90,7 +90,7 @@
                 <label for="condition">Необхідні умови</label>
                 <input type="text" name="condition" id="condition" class="form-control">
             </div>
-            <input type="submit" value="Создать">
+            <input type="submit" value="Створити">
         </form>
         <form method="post" action="${article.id}/info" id="info-id" style="display: none; width: 100%">
             <div class="form-group">
@@ -115,7 +115,7 @@
                 <label for="body1">Зміст</label>
                 <textarea cols="50" rows="20" name="body" id="body1" class="form-control"></textarea>
             </div>
-            <input type="submit" value="Создать">
+            <input type="submit" value="Створити">
         </form>
 
         <c:if test="${cadrs.size() >= 2}">
@@ -133,7 +133,7 @@
                     <label for="to">Зв'язати з</label>
                     <input type="number" name="to" id="to" class="form-control">
                 </div>
-                <input type="submit" value="Создать">
+                <input type="submit" value="Створити">
             </form>
         </c:if>
     </div>

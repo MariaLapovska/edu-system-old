@@ -30,7 +30,7 @@
                 <label for="body">Зміст</label>
                 <textarea id="body" cols="100" rows="10" name="body" class="form-control"></textarea>
             </div>
-            <input type="submit" value="Создать">
+            <input type="submit" value="Створити">
         </form>
     </div>
 </div>

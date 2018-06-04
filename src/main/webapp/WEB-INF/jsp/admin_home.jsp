@@ -23,7 +23,7 @@
                 <label for="name">Назва</label>
                 <input type="text" id="name" name="name" class="form-control">
             </div>
-            <input type="submit" value="Создать">
+            <input type="submit" value="Створити">
         </form>
         </div>
     </div>
