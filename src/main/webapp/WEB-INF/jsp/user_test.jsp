@@ -62,7 +62,7 @@
             </c:if>
         </c:if>
         <c:if test="${resultPresent && nextId == null &&result}">
-            <a href="/result">До результатів</a>
+            <a href="/result/${test.article.id}">До результатів</a>
         </c:if>
     </div>
 </div>

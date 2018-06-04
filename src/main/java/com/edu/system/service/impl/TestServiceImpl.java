@@ -43,11 +43,10 @@ public class TestServiceImpl implements TestService {
         UserAttempt userAttempt = userAttemptService.getUserAttempt(user, test);
         try {
             ValidatorResult validate = validator.validate(payload, test);
-            if (!validate.getSuccess()) {
-                userAttempt.setCount(userAttempt.getCount() + 1);
-                userAttempt = userAttemptService.update(userAttempt);
-                validate.setAttempts(userAttempt.getCount());
-            }
+            userAttempt.setCount(userAttempt.getCount() + 1);
+            userAttempt.setResult(validate.getSuccess());
+            userAttempt = userAttemptService.update(userAttempt);
+            validate.setAttempts(userAttempt.getCount());
             return validate;
         } catch (ValidatorException e) {
             if (e.getDisableAttempt()) {

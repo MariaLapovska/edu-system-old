@@ -8,14 +8,13 @@
 <body>
 <div class="container">
     Назва модуля: ${article.name}
-    <h3>Створені кадры</h3>
     <div class="row">
+        <h3>Створені кадры</h3>
         <table class="table table-striped">
             <thead>
             <tr>
                 <th>Номер</th>
                 <th>Назва</th>
-                <th>Зміст</th>
                 <th>Тип</th>
             </tr>
             </thead>
@@ -28,8 +27,34 @@
                     <c:if test="${cadr.getClassName().equals(\"Test\")}">
                         <td><a href="/admin/test/${cadr.id}">${cadr.name}</a></td>
                     </c:if>
-                    <td>${cadr.body}</td>
                     <td>${cadr.getClassName()}</td>
+                </tr>
+            </c:forEach>
+        </table>
+        <h3>Створені зв'язки</h3>
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>Базовий</th>
+                <th>Зв'язаний</th>
+                <th>Тип</th>
+            </tr>
+            </thead>
+            <c:forEach var="link" items="${links}">
+                <tr>
+                    <c:if test="${link.fromCadr.getClassName().equals(\"Info\")}">
+                        <td><a href="/admin/info/${link.fromCadr.id}">${link.fromCadr.id}</a></td>
+                    </c:if>
+                    <c:if test="${link.fromCadr.getClassName().equals(\"Test\")}">
+                        <td><a href="/admin/test/${link.fromCadr.id}">${link.fromCadr.id}</a></td>
+                    </c:if>
+                    <c:if test="${link.toCadr.getClassName().equals(\"Info\")}">
+                        <td><a href="/admin/info/${link.toCadr.id}">${link.toCadr.id}</a></td>
+                    </c:if>
+                    <c:if test="${link.toCadr.getClassName().equals(\"Test\")}">
+                        <td><a href="/admin/test/${link.toCadr.id}">${link.toCadr.id}</a></td>
+                    </c:if>
+                    <td>${link.type}</td>
                 </tr>
             </c:forEach>
         </table>
@@ -145,7 +170,7 @@
     function wrapImg(textAreaID, imgID) {
         let textArea = $('#' + textAreaID);
         let imageField = $('#' + imgID);
-        let image = '<img src="' + imageField.val() + '" alt=""/>';
+        let image = '<p><img src="' + imageField.val() + '" alt=""/></p>';
         textArea.val(textArea.val() + image);
     }
 </script>

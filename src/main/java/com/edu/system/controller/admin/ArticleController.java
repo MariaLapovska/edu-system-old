@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.edu.system.controller.AccessRoles;
 import com.edu.system.controller.Roles;
 import com.edu.system.repository.AbstractCadrRepository;
+import com.edu.system.repository.LinkCadrRepository;
 import com.edu.system.service.ArticleService;
 import com.edu.system.service.InfoService;
 import com.edu.system.service.ServiceException;
@@ -32,13 +33,15 @@ public class ArticleController {
     private final TestService testService;
     private final AbstractCadrRepository abstractCadrRepository;
     private final InfoService infoService;
+    private final LinkCadrRepository linkCadrRepository;
 
     @Autowired
-    public ArticleController(ArticleService articleService, TestService testService, AbstractCadrRepository abstractCadrRepository, InfoService infoService) {
+    public ArticleController(ArticleService articleService, TestService testService, AbstractCadrRepository abstractCadrRepository, InfoService infoService, LinkCadrRepository linkCadrRepository) {
         this.articleService = articleService;
         this.testService = testService;
         this.abstractCadrRepository = abstractCadrRepository;
         this.infoService = infoService;
+        this.linkCadrRepository = linkCadrRepository;
     }
 
 
@@ -47,6 +50,7 @@ public class ArticleController {
         Article article = articleService.get(id);
         model.addAttribute("article", article);
         model.addAttribute("cadrs", abstractCadrRepository.findByArticleOrderById(article));
+        model.addAttribute("links", linkCadrRepository.findByArticle(article));
         return "admin_article";
     }
 
@@ -60,7 +64,7 @@ public class ArticleController {
 
     @PostMapping("{id}/info")
     public void createInfo(@PathVariable("id") Long id, @RequestParam("name") String name, @RequestParam("body") String body, HttpServletResponse response) throws ServiceException, IOException {
-        infoService.create(name, body, id);
+        infoService.create(name, body.replaceAll("\\n", "<br/>"), id);
         response.sendRedirect("/admin/article/" + id);
     }
 

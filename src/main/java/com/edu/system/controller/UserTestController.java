@@ -62,7 +62,7 @@ public class UserTestController {
             }
         } else {
             if (userAttempt.getCount() >= 3) {
-                response.sendRedirect("/result");
+                response.sendRedirect("/result/" + test.getArticle().getId());
             }
         }
         return "user_test";

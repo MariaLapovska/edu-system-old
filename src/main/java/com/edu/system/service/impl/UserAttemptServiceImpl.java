@@ -1,5 +1,6 @@
 package com.edu.system.service.impl;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +35,11 @@ public class UserAttemptServiceImpl implements UserAttemptService {
             userAttempt.setArticle(test.getArticle());
             return userAttempt;
         }
+    }
+
+    @Override
+    public List<UserAttempt> getUserAttempts(User user) {
+        return userAttemptRepository.findByUser(user);
     }
 
     @Override

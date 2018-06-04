@@ -24,6 +24,9 @@ public class UserMark {
     @ManyToOne
     private User user;
 
-    private Double mark;
+    private Integer mark;
 
+    private Integer total;
+
+    private Integer tries;
 }

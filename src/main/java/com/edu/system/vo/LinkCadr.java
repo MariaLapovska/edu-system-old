@@ -28,6 +28,9 @@ public class LinkCadr {
     @ManyToOne
     private AbstractCadr toCadr;
 
+    @ManyToOne
+    private Article article;
+
     @Enumerated(EnumType.STRING)
     private LinkCadrType type;
 }

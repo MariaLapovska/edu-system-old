@@ -30,6 +30,8 @@ public class UserAttempt {
     @ManyToOne
     private Article article;
 
+    private Boolean result;
+
     @Column(name = "count_attempt", nullable = false, columnDefinition = "int default 0")
     private Integer count;
 

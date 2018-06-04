@@ -6,8 +6,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,6 +15,7 @@ import com.edu.system.controller.AccessRoles;
 import com.edu.system.controller.Roles;
 import com.edu.system.repository.AbstractCadrRepository;
 import com.edu.system.repository.LinkCadrRepository;
+import com.edu.system.service.ArticleService;
 import com.edu.system.service.ServiceException;
 import com.edu.system.vo.AbstractCadr;
 import com.edu.system.vo.LinkCadr;
@@ -29,11 +28,13 @@ public class LinkController {
 
     private final LinkCadrRepository linkCadrRepository;
     private final AbstractCadrRepository abstractCadrRepository;
+    private final ArticleService articleService;
 
     @Autowired
-    public LinkController(LinkCadrRepository linkCadrRepository, AbstractCadrRepository abstractCadrRepository) {
+    public LinkController(LinkCadrRepository linkCadrRepository, AbstractCadrRepository abstractCadrRepository, ArticleService articleService) {
         this.linkCadrRepository = linkCadrRepository;
         this.abstractCadrRepository = abstractCadrRepository;
+        this.articleService = articleService;
     }
 
     @PostMapping("{id}")
@@ -44,6 +45,7 @@ public class LinkController {
         linkCadr.setFromCadr(fromCadr);
         linkCadr.setToCadr(toCadr);
         linkCadr.setType(type);
+        linkCadr.setArticle(articleService.get(id));
         linkCadrRepository.save(linkCadr);
         httpServletResponse.sendRedirect("/admin/article/" + id);
     }
